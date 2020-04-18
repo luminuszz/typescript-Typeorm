@@ -15,16 +15,22 @@ appointmentsRoutes.get('/', async (req, res) => {
 });
 
 appointmentsRoutes.post('/', async (request, response) => {
-   const { provider, date } = request.body;
+   try {
+      const { provider, date } = request.body;
 
-   const parserdDate = parseISO(date);
-   const createAppoitmentSerivece = new CreateAppoitmentSerivice();
-   const appointment = await createAppoitmentSerivece.execute({
-      provider,
-      date: parserdDate,
-   });
+      const parserdDate = parseISO(date);
 
-   return response.json(appointment);
+      const createAppoitmentSerivece = new CreateAppoitmentSerivice();
+
+      const appointment = await createAppoitmentSerivece.execute({
+         provider,
+         date: parserdDate,
+      });
+
+      return response.json(appointment);
+   } catch (error) {
+      return response.status(401).json({ message: error.message });
+   }
 });
 
 export default appointmentsRoutes;

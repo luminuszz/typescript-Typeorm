@@ -13,7 +13,9 @@ interface RequestDTO {
 export class CreateAppoitmentSerivice {
    public async execute({ date, provider }: RequestDTO): Promise<Appointment> {
       const appointmentRepo = getCustomRepository(AppointmentRepository);
+
       const appointmentDate = startOfHour(date);
+
       const findAppointmentInSameDate = await appointmentRepo.findByDate(
          appointmentDate,
       );
@@ -23,8 +25,8 @@ export class CreateAppoitmentSerivice {
       }
 
       const appointment = appointmentRepo.create({
-         date: appointmentDate,
          provider,
+         date: appointmentDate,
       });
       await appointmentRepo.save(appointment);
 
