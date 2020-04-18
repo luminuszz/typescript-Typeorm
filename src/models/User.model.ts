@@ -6,6 +6,8 @@ import {
    UpdateDateColumn,
 } from 'typeorm';
 
+import { Appointment } from '../models/Appointment.model';
+
 @Entity('users')
 export class User {
    @PrimaryGeneratedColumn('uuid')
