@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-constructor */
 import { startOfHour } from 'date-fns';
+import { getCustomRepository } from 'typeorm';
 
 import { Appointment } from '../models/Appointment.model';
 import { AppointmentRepository } from '../repositories/Appointment.Repository';
@@ -9,16 +10,11 @@ interface RequestDTO {
    date: Date;
 }
 
-export class CreateAppoitmentSerivece {
-   private appointmentRepo: AppointmentRepository;
-
-   constructor(appointmentRepo: AppointmentRepository) {
-      this.appointmentRepo = appointmentRepo;
-   }
-
-   public execute({ date, provider }: RequestDTO): Appointment {
+export class CreateAppoitmentSerivice {
+   public async execute({ date, provider }: RequestDTO): Promise<Appointment> {
+      const appointmentRepo = getCustomRepository(AppointmentRepository);
       const appointmentDate = startOfHour(date);
-      const findAppointmentInSameDate = this.appointmentRepo.findByDate(
+      const findAppointmentInSameDate = await appointmentRepo.findByDate(
          appointmentDate,
       );
 
@@ -26,10 +22,11 @@ export class CreateAppoitmentSerivece {
          throw Error('this appoitment is alerady blooked');
       }
 
-      const appointment = this.appointmentRepo.create({
+      const appointment = appointmentRepo.create({
          date: appointmentDate,
          provider,
       });
+      await appointmentRepo.save(appointment);
 
       return appointment;
    }
