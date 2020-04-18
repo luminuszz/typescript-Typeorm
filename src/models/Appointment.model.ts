@@ -1,0 +1,16 @@
+/* eslint-disable import/prefer-default-export */
+import { uuid } from 'uuidv4';
+
+export class Appointment {
+   id: string;
+
+   provider: string;
+
+   date: Date;
+
+   constructor({ date, provider }: Omit<Appointment, 'id'>) {
+      this.id = uuid();
+      this.provider = provider;
+      this.date = date;
+   }
+}
