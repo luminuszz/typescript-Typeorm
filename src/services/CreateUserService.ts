@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { hash } from 'bcrypt';
 import { getRepository } from 'typeorm';
 
-import { AppError } from '../errors/appError';
 import { User } from '../models/User.model';
 
 interface RequestDTO {
@@ -19,7 +19,7 @@ export class CreateUserService {
       });
 
       if (findUser) {
-         throw new AppError('Email address Already used');
+         throw new Error('Email address Already used');
       }
 
       const password_hash = await hash(password, 8);
