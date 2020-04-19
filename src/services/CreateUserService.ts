@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import { hash } from 'bcrypt';
 import { getRepository } from 'typeorm';
 
 import { User } from '../models/User.model';
@@ -21,10 +22,12 @@ export class CreateUserService {
          throw new Error('Email address Already used');
       }
 
+      const password_hash = await hash(password, 8);
+
       const user = usersRepo.create({
          name,
          email,
-         password_hash: password,
+         password_hash,
       });
 
       await usersRepo.save(user);
