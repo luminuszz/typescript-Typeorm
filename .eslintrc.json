@@ -1,47 +1,50 @@
 {
-  "env": {
+   "env": {
       "es6": true,
       "node": true
-  },
-  "extends": [
+   },
+   "extends": [
       "airbnb-base",
       "plugin:@typescript-eslint/recommended",
       "prettier/@typescript-eslint",
       "plugin:prettier/recommended"
-  ],
-  "globals": {
+   ],
+   "globals": {
       "Atomics": "readonly",
       "SharedArrayBuffer": "readonly"
-  },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
+   },
+   "parser": "@typescript-eslint/parser",
+   "parserOptions": {
       "ecmaVersion": 2018,
       "sourceType": "module"
-  },
-  "plugins": [
+   },
+   "plugins": [
       "@typescript-eslint",
       "prettier",
       "eslint-plugin-import-helpers"
-  ],
-  "rules": {
-    "prettier/prettier":"error",
-    "class-methods-use-this":"off",
-    "@typescript-eslint/camelcase":"off",
-    "consistent-return":"off",
-    "import/extensions":"off",
-    "import/no-unresolved":"off",
-    "import/prefer-default-export":"off",
-    "import-helpers/order-imports": [
-      "warn",
-      { // example configuration
-          "newlinesBetween": "always",
-          "groups": [
-              "module",
-              "/^@shared/",
-              ["parent", "sibling", "index"]
-          ],
-          "alphabetize": { "order": "asc", "ignoreCase": true }
-      }
-  ]
-  }
+   ],
+   "rules": {
+      "prettier/prettier":"error",
+      "class-methods-use-this":"off",
+      "@typescript-eslint/camelcase":"off",
+      "consistent-return":"off",
+      "import/extensions":"off",
+      "import/no-unresolved":"off",
+      "import/prefer-default-export":"off",
+      "@typescript-eslint/no-unused-vars":["error",{
+         "argsIgnorePattern": "_"
+      }],
+      "import-helpers/order-imports": [
+         "warn",
+         { // example configuration
+            "newlinesBetween": "always",
+            "groups": [
+               "module",
+               "/^@shared/",
+               ["parent", "sibling", "index"]
+            ],
+            "alphabetize": { "order": "asc", "ignoreCase": true }
+         }
+      ]
+   }
 }

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { hash } from 'bcrypt';
 import { getRepository } from 'typeorm';
 
