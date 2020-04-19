@@ -1,6 +1,7 @@
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
+import { AppError } from '../errors/appError';
 import { Appointment } from '../models/Appointment.model';
 import { AppointmentRepository } from '../repositories/Appointment.Repository';
 
@@ -23,7 +24,7 @@ export class CreateAppoitmentSerivice {
       );
 
       if (findAppointmentInSameDate) {
-         throw Error('this appoitment is alerady blooked');
+         throw new AppError('this appoitment is alerady blooked');
       }
 
       const appointment = appointmentRepo.create({

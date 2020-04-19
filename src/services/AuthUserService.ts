@@ -3,6 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 
 import { authConfig } from '../config/auth.config';
+import { AppError } from '../errors/appError';
 import { User } from '../models/User.model';
 
 interface RequestDTO {
@@ -22,12 +23,12 @@ export class AuthUserService {
       const user = await usersRepo.findOne({ where: { email } });
 
       if (!user) {
-         throw new Error('Incorret email/password combination.');
+         throw new AppError('Incorret email/password combination.', 401);
       }
       const passwordMached = await compare(password, user.password_hash);
 
       if (!passwordMached) {
-         throw new Error('Incorret email/password combination.');
+         throw new AppError('Incorret email/password combination.', 401);
       }
 
       const token = sign({}, authConfig.secret, {
