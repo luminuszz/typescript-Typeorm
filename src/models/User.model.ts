@@ -6,7 +6,7 @@ import {
    UpdateDateColumn,
 } from 'typeorm';
 
-import { Appointment } from '../models/Appointment.model';
+// import { Appointment } from '../models/Appointment.model';
 
 @Entity('users')
 export class User {
@@ -23,8 +23,8 @@ export class User {
    password_hash: string;
 
    @CreateDateColumn()
-   createdAt: Date;
+   created_at: Date;
 
    @UpdateDateColumn()
-   updatedAt: Date;
+   updated_at: Date;
 }

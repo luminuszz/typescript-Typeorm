@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-constructor */
 import { startOfHour } from 'date-fns';
 import { getCustomRepository } from 'typeorm';
 
@@ -6,12 +5,15 @@ import { Appointment } from '../models/Appointment.model';
 import { AppointmentRepository } from '../repositories/Appointment.Repository';
 
 interface RequestDTO {
-   provider: string;
+   provider_id: string;
    date: Date;
 }
 
 export class CreateAppoitmentSerivice {
-   public async execute({ date, provider }: RequestDTO): Promise<Appointment> {
+   public async execute({
+      date,
+      provider_id,
+   }: RequestDTO): Promise<Appointment> {
       const appointmentRepo = getCustomRepository(AppointmentRepository);
 
       const appointmentDate = startOfHour(date);
@@ -25,7 +27,7 @@ export class CreateAppoitmentSerivice {
       }
 
       const appointment = appointmentRepo.create({
-         provider,
+         provider_id,
          date: appointmentDate,
       });
       await appointmentRepo.save(appointment);
